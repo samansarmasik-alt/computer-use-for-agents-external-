@@ -137,11 +137,11 @@ internal sealed class InputController
         var parsedButton = ParseMouseButton(button);
         switch (Normalize(action))
         {
-            case "hold":
-            case "press":
+            case "HOLD":
+            case "PRESS":
                 HoldMouseButton(parsedButton);
                 return $"Mouse button '{parsedButton}' is held.";
-            case "release":
+            case "RELEASE":
                 return ReleaseMouseButton(parsedButton)
                     ? $"Mouse button '{parsedButton}' was released."
                     : $"Mouse button '{parsedButton}' was not held by PC Use.";
@@ -155,7 +155,7 @@ internal sealed class InputController
         var keyInfo = ResolveKey(key);
         switch (Normalize(action))
         {
-            case "press":
+            case "PRESS":
                 if (_heldKeys.Contains(keyInfo.VirtualKey))
                 {
                     ReleaseKey(keyInfo);
@@ -164,10 +164,10 @@ internal sealed class InputController
                 HoldKey(keyInfo);
                 ReleaseKey(keyInfo);
                 return $"Key '{Normalize(key)}' was pressed.";
-            case "hold":
+            case "HOLD":
                 HoldKey(keyInfo);
                 return $"Key '{Normalize(key)}' is held.";
-            case "release":
+            case "RELEASE":
                 return ReleaseKey(keyInfo)
                     ? $"Key '{Normalize(key)}' was released."
                     : $"Key '{Normalize(key)}' was not held by PC Use.";
@@ -247,11 +247,11 @@ internal sealed class InputController
     {
         return Normalize(button) switch
         {
-            "left" => MouseButton.Left,
-            "right" => MouseButton.Right,
-            "middle" => MouseButton.Middle,
-            "x1" => MouseButton.X1,
-            "x2" => MouseButton.X2,
+            "LEFT" => MouseButton.Left,
+            "RIGHT" => MouseButton.Right,
+            "MIDDLE" => MouseButton.Middle,
+            "X1" => MouseButton.X1,
+            "X2" => MouseButton.X2,
             _ => throw new ArgumentException("Mouse button must be left, right, middle, x1, or x2.", nameof(button))
         };
     }
